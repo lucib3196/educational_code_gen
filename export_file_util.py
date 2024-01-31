@@ -86,7 +86,7 @@ async def export_files(file_name: str, file_content: str, file_location: str, ap
 #     file_name = "test.txt"
 #     file_content = "This is a test file content"
 #     file_location = "test_output"
-#     api_key = "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"
+#     api_key = "insert-api_key"
 #     model_name = "gpt-3.5-turbo"
 
 #     output = await export_files(file_name, file_content, file_location, api_key=api_key, model_name=model_name)
