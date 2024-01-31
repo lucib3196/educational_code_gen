@@ -73,11 +73,11 @@ async def export_files(file_name: str, file_content: str, file_location: str, ap
     agent = create_openai_functions_agent(llm, tools,prompt)
 
     # Set up the AgentExecutor
-    agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=True)
+    agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=True,handle_parsing_errors=True)
     
-
+    #file_content = file_content.replace("\n", "\\n").replace('"', '\\"')
     # Run the agent to export files
-    output = agent_executor.invoke({"input": f"Given the following {file_content} save the file as {file_name} in the following folder {file_location}"})
+    output = agent_executor.invoke({"input": f"Given the following {file_content} save the file as {file_name} in the following folder {file_location}. Modify the file content to ensure it is capable of being exported"})
     return output
 
 

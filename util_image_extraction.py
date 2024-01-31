@@ -89,8 +89,9 @@ def extract_question(image_path,api_key,max_tokens = 1000):
 
 def extract_solution(image_path,api_key,max_tokens = 1000):
     extract_solution_prompt = """
+    
     Objective:
-    Develop a generalized guide to outline the methodical steps for solving the STEM problem depicted in the provided image. Your guide should focus on extracting and explaining the core principles and equations involved in the problem.
+    Analyze the following image and extract and Develop a generalized guide to outline the methodical steps for solving the  problem depicted in the provided image. Your guide should focus on extracting and explaining the core principles and equations involved in the problem.
 
     Solution Guide Format:
 

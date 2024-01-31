@@ -1,0 +1,15 @@
+{
+  "uuid": "generated-uuid",
+  "title": "Diameter of Wire Calculation",
+  "stem": "A wire of circular cross-section has a tensile force of 60.0 N applied to it and this force produces a stress of 3.06 MPa in the wire. Determine the diameter of the wire.",
+  "topic": "Mechanical Engineering",
+  "tags": ["wire", "stress", "diameter", "mechanical engineering"],
+  "prereqs": "Knowledge of stress and force analysis",
+  "isAdaptive": true,
+  "createdBy": "lberm007@ucr.edu",
+  "qType": "num",
+  "nSteps": 1,
+  "updatedBy": "",
+  "dificulty": 1,
+  "codelang": "javascript"
+}
