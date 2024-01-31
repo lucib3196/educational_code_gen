@@ -216,7 +216,7 @@ class SemanticSearch:
         dataframe (pd.DataFrame): DataFrame loaded and processed from the CSV file.
     """
 
-    def __init__(self, csv_path: str, embedding_column_name: str, embedding_engine: str):
+    def __init__(self, csv_path: str, embedding_column_name: str, embedding_engine: str,api_key:str):
         """
         Initializes the SemanticSearch class with the specified CSV path, embedding column name, 
         and embedding engine.
@@ -231,6 +231,7 @@ class SemanticSearch:
         self.embedding_engine = embedding_engine
         self.csv_data_handler = CSVDataHandler(csv_path, embedding_column_name)
         self.dataframe = self.csv_data_handler.dataframe()
+        self.client = OpenAI(api_key=api_key)
 
     def _validate_column(self, column_name: str):
         """
@@ -284,7 +285,7 @@ class SemanticSearch:
 
         try:
             # Replace the following line with actual embedding generation using the specified engine
-            question_embedding_response = client.embeddings.create(input = input_string, model=self.embedding_engine)  # Placeholder function
+            question_embedding_response = self.client.embeddings.create(input = input_string, model=self.embedding_engine)  # Placeholder function
 
             question_embedding = question_embedding_response.data[0].embedding
              
@@ -386,18 +387,16 @@ class SemanticSearch:
         print("\n")
         
         
-# api_key = "your_openai_api_key"  # Replace with your actual API key                
-# client = OpenAI(api_key)
-# client = OpenAI()
-# Configuration variables
-data_csv_path = "Question_Embedding_20240128.csv"
-embedding_model_name = "text-embedding-ada-002"
-input_question = "If the maximum acceleration of a car is 3.0 m/s². What is the 0-60 mph time in seconds?"
-search_column = "question.html"  # Column name in the CSV
-number_of_examples = 3
+# api_key = "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"  # Replace with your actual API key                
+# # Configuration variables
+# data_csv_path = "Question_Embedding_20240128.csv"
+# embedding_model_name = "text-embedding-ada-002"
+# input_question = "If the maximum acceleration of a car is 3.0 m/s². What is the 0-60 mph time in seconds?"
+# search_column = "question.html"  # Column name in the CSV
+# number_of_examples = 3
 
 # # Initialize the SemanticSearch instance
-# semantic_search_instance = SemanticSearch(data_csv_path, "question_embedding", embedding_model_name)
+# semantic_search_instance = SemanticSearch(data_csv_path, "question_embedding", embedding_model_name,api_key=api_key)
 
 # # Extract examples using SemanticSearch
 # extracted_examples = semantic_search_instance.extract_examples(
