@@ -12,7 +12,7 @@ from util_validation import validate_question_html_format
 
 
 # API Key
-api_key = "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"
+api_key = "insert_api_key"
 # LLM model
 model = "gpt-4-0125-preview"
 
@@ -131,7 +131,7 @@ def generate_metadata_and_folder(question: str, user_data: dict, export_path: st
         # Extract the folder title from the metadata
         # The structure of metaData is checked to ensure correct extraction
         folder_title = metaData[0]["title"] if isinstance(metaData, list) else metaData["title"]
-        print(folder_title)
+        #print(folder_title)
         # Create a folder with the extracted title in the specified export path
         created_folder_path = create_folder(folder_title, target_path=export_path)
         print(created_folder_path)
@@ -166,12 +166,12 @@ def process_question(question, solution_guide, user_data):
         return False
 
     files_tuple = generate_adaptive_code(question, solution_guide, user_data, metaData)
-    print(files_tuple)
+    #print(files_tuple)
 
     # Map tuple elements to filenames, skipping None values
     file_names = ["question.html", "server.py", "server.js", "solution.html"]
     files_dict = {name: content for name, content in zip(file_names, files_tuple) if content is not None}
-    print("\n Files dict\n ",files_dict)
+    #print("\n Files dict\n ",files_dict)
     export_files_to_folder(created_folder, files_dict)
     
     if isinstance(metaData, tuple):
@@ -202,7 +202,7 @@ def main():
 
     # Step 2: Prepare a List for Questions and Variations
     questions_to_process = [(question, solution_guide)]
-    print(questions_to_process)
+    #print(questions_to_process)
 
     # Step 3: Check for Question Variations
     generate_variations_input = prompt_generate_question_variations()

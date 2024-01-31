@@ -135,7 +135,7 @@ def builder_server_js(question_html, api_key, csv_path, solution_guide=None, ext
         "embedding_column": "question_embedding",
         "search_column": "question.html",
         "output_column": "server.js",
-        "n_examples": 2
+        "n_examples": 1
     }
 
     llm_options = {

@@ -387,7 +387,7 @@ class SemanticSearch:
         print("\n")
         
         
-# api_key = "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"  # Replace with your actual API key                
+# api_key = "api_key_goes_here"  # Replace with your actual API key                
 # # Configuration variables
 # data_csv_path = "Question_Embedding_20240128.csv"
 # embedding_model_name = "text-embedding-ada-002"
