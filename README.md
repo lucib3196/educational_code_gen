@@ -1,5 +1,8 @@
 # Educational Code Generator
 
+## Project Description
+ This project aims to leverage AI completion models to develop an educational tool for mechanical engineering students. The program generates personalized homework questions and step-by-step solutions in matrix algebra, calculus, and physics.
+
 ## Getting Started
 
 ### Install Python
