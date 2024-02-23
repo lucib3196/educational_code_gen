@@ -30,9 +30,9 @@ def question_solution_guide(question:str,api_key:str,csv_path:str,solution_guide
     "n_examples": 2}
 
     llm_options = {
-        "llm_code_generation_model": "gpt-3.5-turbo-0125",
-        "agent_model": "gpt-3.5-turbo-0125",
-        "retriever_model": "gpt-3.5-turbo-0125",
+        "llm_code_generation_model": "gpt-4-turbo-preview",
+        "agent_model": "gpt-4-turbo-preview",
+        "retriever_model": "gpt-4-turbo-preview",
         "temperature": 0,  
         "embedding_model": "text-embedding-ada-002"
     }
@@ -91,6 +91,7 @@ def question_solution_guide(question:str,api_key:str,csv_path:str,solution_guide
         """
         base_template = template_with_guide
         
+        print(base_template)
 
     if not solution_guide:
         # If neither solution_guide nor code was provided, use the default template
@@ -103,6 +104,7 @@ def question_solution_guide(question:str,api_key:str,csv_path:str,solution_guide
     
     prompt=ExampleBasedPromptFormatter.run(examples_dict,base_template) + f"\n new_question_input = {question}  delimit the generated html with ```insert_code_here```"
     # Define LLM 
+    print(prompt)
     llm = ChatOpenAI(model = llm_options["llm_code_generation_model"],api_key=api_key,temperature=llm_options["temperature"])
     output_parser = StrOutputParser()
     chain = llm | output_parser
@@ -120,7 +122,7 @@ def question_solution_guide(question:str,api_key:str,csv_path:str,solution_guide
         ```insert revised html code here```
         """
         solution_generated = chain.invoke(solution_improvement)
-    
+    print(code_guide)
     return solution_generated
 
 # # Example usage of the function

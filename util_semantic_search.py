@@ -259,7 +259,7 @@ class SemanticSearch:
         if not isinstance(input_string, str):
             raise TypeError("Expected input to be a string.")
 
-    def semantic_search(self, input_string: str, search_column: str, n_examples: int, similarity_threshold=0.3):
+    def semantic_search(self, input_string: str, search_column: str, n_examples: int, similarity_threshold=0.8):
         """
         Performs a semantic search on the DataFrame, returning examples similar to the input string.
 
@@ -387,42 +387,42 @@ class SemanticSearch:
         print("\n")
         
         
-# api_key = ""  # Replace with your actual API key                
-# # Configuration variables
-# data_csv_path = "Question_Embedding_20240128.csv"
-# embedding_model_name = "text-embedding-ada-002"
-# input_question = "A 70-0 mph braking distance for a car is 170 feet. What's the deceleration in ft/s^2 ?"
-# search_column = "question"  # Column name in the CSV
-# number_of_examples = 3
+api_key = "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"  # Replace with your actual API key                
+# Configuration variables
+data_csv_path = "Question_Embedding_20240128.csv"
+embedding_model_name = "text-embedding-ada-002"
+input_question = "A wire of circular cross-section has a tensile force of 60.0N applied to it and this force produces a stress of 3.06 MPa in the wire determine the diameter of the wire?"
+search_column = "question"  # Column name in the CSV
+number_of_examples = 3
 
-# # Initialize the SemanticSearch instance
-# semantic_search_instance = SemanticSearch(data_csv_path, "question_embedding", embedding_model_name,api_key=api_key)
+# Initialize the SemanticSearch instance
+semantic_search_instance = SemanticSearch(data_csv_path, "question_embedding", embedding_model_name,api_key=api_key)
 
-# # Extract examples using SemanticSearch
-# extracted_examples = semantic_search_instance.extract_examples(
-#     input_string=input_question,
-#     search_column=search_column,
-#     output_column="properties.js",
-#     n_examples=number_of_examples
-# )
+# Extract examples using SemanticSearch
+extracted_examples = semantic_search_instance.extract_examples(
+    input_string=input_question,
+    search_column=search_column,
+    output_column="solution.html",
+    n_examples=number_of_examples
+)
 
-# # Print the extracted examples (uncomment if needed)
-# print(extracted_examples)
+# Print the extracted examples (uncomment if needed)
+print(extracted_examples)
 
-# # Pretty print extracted examples (uncomment if needed)
-# semantic_search_instance.pretty_print_extracted_examples(
-#     input_question,
-#     search_column=search_column,
-#     output_column="question.html",
-#     n_examples=number_of_examples
-# )
+# Pretty print extracted examples (uncomment if needed)
+semantic_search_instance.pretty_print_extracted_examples(
+    input_question,
+    search_column=search_column,
+    output_column="question.html",
+    n_examples=number_of_examples
+)
 
-# # Pretty print semantic search results (uncomment if needed)
-# semantic_search_instance.pretty_print_semantic_results(
-#     input_question,
-#     search_column,
-#     number_of_examples
-# )
+# Pretty print semantic search results (uncomment if needed)
+semantic_search_instance.pretty_print_semantic_results(
+    input_question,
+    search_column,
+    number_of_examples
+)
 
 # ## Questions to modify function 
 

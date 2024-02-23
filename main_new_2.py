@@ -190,7 +190,7 @@ def process_non_adaptive(question, question_path,meta_data, config):
 # Example usage
 def main():
     config = {
-        "api_key": "insert_api_key",  # Replace with your actual API key
+        "api_key": "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",  # Replace with your actual API key
         "csv_file": "Question_Embedding_20240128.csv",
         "created_by": "user123",  # Replace with the actual creator identifier
         "code_language": "javascript",  # Replace with the actual code language
@@ -244,7 +244,7 @@ def main():
     
     print(config)
     
-    export_path = r"C:\Users\lberm\OneDrive\Desktop\GitHub_Repository\educational_code_gen\question_output"
+    export_path = config["export_path"]
     for question,solutions in questions_to_process:
         config["solution_guide"] = solutions
         
