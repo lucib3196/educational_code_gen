@@ -190,7 +190,7 @@ def process_non_adaptive(question, question_path,meta_data, config):
 # Example usage
 def main():
     config = {
-        "api_key": "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",  # Replace with your actual API key
+        "api_key": "insert_api_key",  # Replace with your actual API key
         "csv_file": "Question_Embedding_20240128.csv",
         "created_by": "user123",  # Replace with the actual creator identifier
         "code_language": "javascript",  # Replace with the actual code language
@@ -198,6 +198,7 @@ def main():
         "solution_guide": None,  # Placeholder for solution guide path or content
         "additional_instructions": None,  # Placeholder for any additional instructions
         "retrieval_optimization": False,  # Placeholder for retrieval optimization flag
+        "export_path": r"question_output" # Replace with where you want questions to be exported
     }
     # Initialize classes
     variation_generator = GenerateVariation(config["api_key"])

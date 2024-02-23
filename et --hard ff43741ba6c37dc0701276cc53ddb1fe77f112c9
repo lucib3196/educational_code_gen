@@ -1,0 +1,90 @@
+[33mcommit 3feb8f99b3afcfb6696280b0ff0ffae2b4ff3171[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m
+Merge: ff43741b e9a8a270
+Author: Luciano Bermudez <lucianobmecheng69@gmail.com>
+Date:   Fri Feb 23 11:41:09 2024 -0800
+
+    Remove main.py as it is deprecated
+
+[33mcommit ff43741ba6c37dc0701276cc53ddb1fe77f112c9[m
+Author: Luciano Bermudez <lucianobmecheng69@gmail.com>
+Date:   Fri Feb 23 11:38:01 2024 -0800
+
+    Merged the branch I was working with added a couple new functions and a new main
+
+[33mcommit e9a8a270387cc7292f022dfebc13a600277cd2b6[m
+Author: Johan Gonzalez <johangonzalez7373@gmail.com>
+Date:   Wed Feb 21 13:43:04 2024 -0800
+
+    update README
+
+[33mcommit ae71a40a9f3f808d3f0dd3773185c6499bd3dab0[m
+Author: Johan Gonzalez <johangonzalez7373@gmail.com>
+Date:   Wed Feb 21 13:32:32 2024 -0800
+
+    added README
+
+[33mcommit 0f833694fe57e7bebaa825ba49516d7d3db4dacf[m
+Author: Johan Gonzalez <johangonzalez7373@gmail.com>
+Date:   Wed Feb 21 12:07:13 2024 -0800
+
+    hidden api key implementation
+
+[33mcommit 10c385e15f1d3f6684eade22024d2c4544e8b882[m[33m ([m[1;32munit_converter_class[m[33m)[m
+Author: Luciano Bermudez <lucianobmecheng69@gmail.com>
+Date:   Wed Jan 31 02:26:06 2024 -0800
+
+    Code and tired
+
+[33mcommit 5f28471d007c137636536937be0ce3af28d72881[m
+Author: Luciano Bermudez <lucianobmecheng69@gmail.com>
+Date:   Wed Jan 31 01:58:34 2024 -0800
+
+     I am tired and i want to go to sleep but this code is done
+
+[33mcommit 4b79c95ee9f6735bee6a8062ebee4e23160db131[m
+Author: Luciano Bermudez <lucianobmecheng69@gmail.com>
+Date:   Tue Jan 30 20:22:25 2024 -0800
+
+     Added new functions and files and utils
+
+[33mcommit 22219e888fe408aa09e5aa236d05dbc157754285[m
+Author: Luciano Bermudez <lucianobmecheng69@gmail.com>
+Date:   Tue Jan 30 19:38:23 2024 -0800
+
+    Added file extraction utils
+
+[33mcommit f6aa20d0e090f901b86d894fa8f9e8aba007e871[m
+Author: Luciano Bermudez <lucianobmecheng69@gmail.com>
+Date:   Tue Jan 30 19:17:20 2024 -0800
+
+     Added example based prompt
+
+[33mcommit d5bd82735f0e94f8133a37555e27a2e6a367ecaf[m
+Author: Luciano Bermudez <lucianobmecheng69@gmail.com>
+Date:   Tue Jan 30 19:05:48 2024 -0800
+
+    Added semantic Search Util
+
+[33mcommit 0a20a2703163e555b8222252a37db73184e27cf1[m
+Author: Luciano Bermudez <lucianobmecheng69@gmail.com>
+Date:   Tue Jan 30 18:49:07 2024 -0800
+
+     added dataset update utisl
+
+[33mcommit 93828f79966005882d105145f992b755d036953e[m
+Author: Luciano Bermudez <lucianobmecheng69@gmail.com>
+Date:   Tue Jan 30 18:41:24 2024 -0800
+
+     Added validation utilities
+
+[33mcommit befe7177283d939d694eb6f45d47febfdfc061b3[m
+Author: Luciano Bermudez <lucianobmecheng69@gmail.com>
+Date:   Tue Jan 30 18:37:21 2024 -0800
+
+    first commit
+
+[33mcommit 95a2de85b95e3407b5778622cf9e2f7922039702[m
+Author: Luciano Bermudez <lucianobmecheng69@gmail.com>
+Date:   Tue Jan 30 18:31:46 2024 -0800
+
+    Initial commit

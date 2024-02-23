@@ -1,0 +1,16 @@
+[33mddecec87[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m)[m Remove main.py as it is deprecated
+[33m3feb8f99[m[33m ([m[1;31morigin/main[m[33m)[m Remove main.py as it is deprecated
+[33mff43741b[m Merged the branch I was working with added a couple new functions and a new main
+[33me9a8a270[m update README
+[33mae71a40a[m added README
+[33m0f833694[m hidden api key implementation
+[33m10c385e1[m[33m ([m[1;32munit_converter_class[m[33m)[m Code and tired
+[33m5f28471d[m  I am tired and i want to go to sleep but this code is done
+[33m4b79c95e[m  Added new functions and files and utils
+[33m22219e88[m Added file extraction utils
+[33mf6aa20d0[m  Added example based prompt
+[33md5bd8273[m Added semantic Search Util
+[33m0a20a270[m  added dataset update utisl
+[33m93828f79[m  Added validation utilities
+[33mbefe7177[m first commit
+[33m95a2de85[m Initial commit
