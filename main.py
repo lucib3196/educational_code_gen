@@ -9,13 +9,21 @@ from util_generation_misc import create_variation_solution
 from util_string_extraction import extract_javascript_generate_code
 from util_file_export import create_folder,export_files
 from util_validation import validate_question_html_format
+<<<<<<< HEAD
 from util_javascript_generator import js_generator
 
 
 # API Key
 api_key = "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"
+=======
+from openai import OpenAI
+import os
+
+# API Key
+api_key = os.environ.get("OPENAI_API_KEY")
+>>>>>>> e9a8a270387cc7292f022dfebc13a600277cd2b6
 # LLM model
-model = "gpt-4-0125-preview"
+model = os.environ.get("model")
 
 # Csv path 
 csv_path = r"Question_Embedding_20240128.csv"
