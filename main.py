@@ -190,7 +190,7 @@ def process_non_adaptive(question, question_path,meta_data, config):
 # Example usage
 def main():
     config = {
-        "api_key": "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",  # Replace with your actual API key
+        "api_key": "",  # Replace with your actual API key
         "csv_file": "Question_Embedding_20240128.csv",
         "created_by": "user123",  # Replace with the actual creator identifier
         "code_language": "javascript",  # Replace with the actual code language
