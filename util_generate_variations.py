@@ -160,7 +160,7 @@ class GenerateVariation:
         """
         self.api_key = api_key or os.getenv('OPENAI_API_KEY')
         self.LLM_OPTIONS = llm_options or {
-            "model": "gpt-4-0125-preview",
+            "model": "gpt-4",
             "temperature": "0"
         }
 
@@ -220,7 +220,7 @@ class GenerateVariation:
         """Generates multiple question variations by altering the unknowns"""
         format_instructions = self.pydantic_parser.get_format_instructions()
         question_data = self.Extractor.extract(question)
-        #print("Question data",question_data)
+        print("Question data",question_data)
         variations = [
             self._generate_variation(question, known, format_instructions) 
             for known in question_data["knowns"]

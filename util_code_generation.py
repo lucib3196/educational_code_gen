@@ -14,7 +14,9 @@ from util_example_based_prompt import ExampleBasedPromptFormatter
 from util_semantic_search import CSVDataHandler, SemanticSearch
 import asyncio
 from langchain_core.output_parsers import StrOutputParser
-
+from util_validation import validate_question_html_format
+from util_javascript_generator import js_generator
+from util_string_extraction import extract_javascript_generate_code
 output_parser = StrOutputParser()
 
 class PromptFormatterFromRepository():
@@ -112,11 +114,11 @@ def builder_question_html(question:str,api_key:str,csv_path:str):
         "embedding_column": "question_embedding",
         "search_column": "question",
         "output_column": "question.html",
-        "n_examples": 3
+        "n_examples": 4
     }
 
     llm_options = {
-        "llm_model": "gpt-4-0125-preview",
+        "llm_model": "gpt-4",
         "temperature": "0",
         "embedding_model": "text-embedding-ada-002"
     }
@@ -124,7 +126,7 @@ def builder_question_html(question:str,api_key:str,csv_path:str):
     Generate a html code based on the following examples"""
     
     code_generator = PromptFormatterFromRepository(api_key=api_key,csv_path=csv_path, example_options=example_options, llm_options=llm_options,prompt=prompt)
-    html_generated = asyncio.run(code_generator._arun(question)).replace("{", "{{")
+    html_generated = asyncio.run(code_generator._arun(str(question))).replace("{", "{{")
     html_generated = html_generated.replace("}","}}")
     return html_generated
 
@@ -336,7 +338,7 @@ def builder_solution_html(question_html, api_key, csv_path, solution_guide=None,
     }
 
     llm_options = {
-        "llm_model": "gpt-4-0125-preview",
+        "llm_model": "gpt-3.5-turbo-1106",
         "temperature": "0",
         "embedding_model": "text-embedding-ada-002"
     }
@@ -438,3 +440,81 @@ def builder_solution_html(question_html, api_key, csv_path, solution_guide=None,
 # question = "A car travels for a distance of 5mph for 30 minutes what is the distance traveled?"  # Replace with your actual question
 
 # generate_all_components(api_key, csv_path, question)
+
+
+def attempt_generate_html(question, api_key, csv_path, max_attempts=3):
+    """
+    Attempts to generate HTML for the given question and validates its format.
+
+    Parameters:
+    question (str): The question content or text.
+    api_key (str): API key for the service.
+    csv_path (str): Path to the CSV file.
+    max_attempts (int): Maximum number of validation attempts.
+
+    Returns:
+    str: Validated HTML content for the question.
+    """
+    for attempt in range(max_attempts):
+        question_html = builder_question_html(question, api_key, csv_path)
+        try:
+            validate_question_html_format(question_html)
+            return question_html
+        except ValueError as e:
+            print(f"Attempt {attempt + 1}: HTML format validation failed: {e}")
+    raise ValueError("Maximum validation attempts reached. Validation failed.")
+
+
+def generate_code(input_question, is_adaptive_str, codelang, csv_path, api_key, solution_guide=None):
+    """
+    Generates code and solution HTML based on the question, adaptiveness, language preference, and solution guide.
+
+    Parameters:
+    input_question (str): The question content or text.
+    is_adaptive_str (str): String representation indicating whether the question content is adaptive.
+    codelang (str): The preferred coding language ('python', 'javascript', or 'both').
+    solution_guide (str, optional): An optional solution guide.
+    csv_path (str): Path to the CSV file.
+    api_key (str): API key for the service.
+
+    Returns:
+    tuple: HTML for the question, Python code, JavaScript code, and solution HTML.
+           Returns None for each element that isn't generated.
+    """
+    question_html, server_python, server_javascript, solution_html = None, None, None, None
+
+    is_adaptive = is_adaptive_str.lower() == "true"
+
+    if is_adaptive:
+        question_html = attempt_generate_html(input_question, api_key, csv_path)
+
+        if codelang in ["javascript", "both"]:
+            server_javascript = js_generator(question_html, api_key, csv_path=csv_path, solution_guide=solution_guide)
+        if isinstance(codelang, list):
+            if codelang[0] in ["python", "both"]:
+                server_python = js_generator(str(question_html), api_key, csv_path, solution_guide)
+
+        extracted_code = extract_javascript_generate_code(str(server_javascript)) if server_javascript else None
+        solution_html = builder_solution_html(str(question_html), api_key, csv_path, solution_guide, code_reference=extracted_code)
+        solution_html = solution_html.replace("\n", "\\n").replace('"', '\\"')
+
+    else:
+        if codelang in ["python", "both"]:
+            server_python = js_generator(str(question_html), api_key, csv_path, solution_guide)
+
+        extracted_code = extract_javascript_generate_code(str(server_javascript)) if server_javascript else None
+        solution_html = builder_solution_html(str(question_html), api_key, csv_path, solution_guide, code_reference=extracted_code)
+        solution_html = solution_html.replace("\n", "\\n").replace('"', '\\"')
+
+        question_html = builder_question_html(question=input_question, api_key=api_key, csv_path=csv_path)
+
+    return question_html, server_python, server_javascript, solution_html
+
+
+
+# # Example usage of the function
+# api_key = ""  # Replace with your actual API key
+# csv_path = r"Question_Embedding_20240128.csv"  # Replace with your actual CSV path
+# question = "A car travels for a distance of 5mph for 30 minutes what is the distance traveled?"  # Replace with your actual question
+# question_html,server_python,server_javascript,solution_html = generate_code(question,"true",csv_path=csv_path,api_key=api_key,codelang="javascript")
+# print(question_html,server_javascript,solution_html)

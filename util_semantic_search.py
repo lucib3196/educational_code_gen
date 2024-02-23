@@ -357,7 +357,7 @@ class SemanticSearch:
         print("-" * 90)
 
         for index, example, similarity_score in semantic_results:
-            display_example = (example[:57] + '...') if len(example) > 60 else example
+            display_example = (example[:100] + '...') if len(example) > 60 else example
             print(f"{index:<10}{similarity_score:<20.2f}{display_example:<60}")
 
         print("\n")
@@ -387,12 +387,12 @@ class SemanticSearch:
         print("\n")
         
         
-# api_key = "api_key_goes_here"  # Replace with your actual API key                
+# api_key = ""  # Replace with your actual API key                
 # # Configuration variables
 # data_csv_path = "Question_Embedding_20240128.csv"
 # embedding_model_name = "text-embedding-ada-002"
-# input_question = "If the maximum acceleration of a car is 3.0 m/s². What is the 0-60 mph time in seconds?"
-# search_column = "question.html"  # Column name in the CSV
+# input_question = "A 70-0 mph braking distance for a car is 170 feet. What's the deceleration in ft/s^2 ?"
+# search_column = "question"  # Column name in the CSV
 # number_of_examples = 3
 
 # # Initialize the SemanticSearch instance
@@ -402,7 +402,7 @@ class SemanticSearch:
 # extracted_examples = semantic_search_instance.extract_examples(
 #     input_string=input_question,
 #     search_column=search_column,
-#     output_column="question.html",
+#     output_column="properties.js",
 #     n_examples=number_of_examples
 # )
 
@@ -423,4 +423,9 @@ class SemanticSearch:
 #     search_column,
 #     number_of_examples
 # )
+
+# ## Questions to modify function 
+
+# # multiple_choice_obvious = On a velocity-time graph, a downward sloping line indicates: these are the options for the multiple choice a body decelerating(correct answer),a body accelerating a body moving in the negative direction ,a body moving at constant speed
+# # multiple_choice_implicit = Multiple choice quesiton. A plane has taken off the runway and has gained a speed of 300 mph making an angle 15 degrees with the horizontal. When the plane is 1600 ft off the ground, a loose nut detaches the plane and falls to the ground. Neglect air resistance and assume the plane travels in a straight line at constant speed. Which of the following is true when the nut hits the ground? The plane is vertically above the point at which the nut hits the ground (correct) The plane has travelled a greater horizontal distance than the nut and hence is ahead of the nut.The plane has travelled less horizontal distance than the nut, and hence is behind the nut. There is insufficient information to provide a definite answer
     

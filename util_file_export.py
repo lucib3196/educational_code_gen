@@ -46,7 +46,7 @@ def create_folder(folder_name, target_path):
     return None
 
 
-async def export_files(file_name: str, file_content: str, file_location: str, api_key: str, model_name: str):
+def export_files(file_name: str, file_content: str, file_location: str, api_key: str, model_name: str):
     """
     Asynchronously exports file content to a specified location with a given file name, using a conversational AI agent.
 

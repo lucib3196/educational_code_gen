@@ -9,10 +9,11 @@ from util_generation_misc import create_variation_solution
 from util_string_extraction import extract_javascript_generate_code
 from util_file_export import create_folder,export_files
 from util_validation import validate_question_html_format
+from util_javascript_generator import js_generator
 
 
 # API Key
-api_key = "insert_api_key"
+api_key = "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"
 # LLM model
 model = "gpt-4-0125-preview"
 
@@ -69,13 +70,16 @@ def generate_code(input_question, isAdaptive, codelang, solution_guide=None, csv
         if codelang in ["python", "both"]:
             server_python = builder_server_py(str(question_html), api_key, csv_path, solution_guide)
         if codelang in ["javascript", "both"]:
-            server_javascript = builder_server_js(str(question_html), api_key, csv_path, solution_guide)
+            server_javascript = js_generator(question_html,api_key,csv_path=csv_path,solution_guide=solution_guide)
 
         extracted_code = extract_javascript_generate_code(str(server_javascript)) if server_javascript else None
         solution_html = builder_solution_html(str(question_html), api_key, csv_path, solution_guide, code_reference=extracted_code)
         solution_html.replace("\n", "\\n").replace('"', '\\"')
-    return question_html, server_python, server_javascript, solution_html
-
+        return question_html, server_python, server_javascript, solution_html
+    else:
+        question_html = builder_question_html(question=input_question,api_key=api_key,csv_path=csv_path)
+        
+        return question_html, server_python, server_javascript, solution_html
 
 
 def generate_metadata(question, user_data):

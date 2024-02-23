@@ -49,7 +49,6 @@ def get_input_question_type_choice():
         image_path = input("Enter the path to your image: ")
 
         try:
-            # Assuming validate_image_path is a predefined function that validates the image path and returns processed results
             process_result = validate_image_path(image_path)
             return {"type": "image", "data": process_result}
         except FileNotFoundError as e:
@@ -136,3 +135,78 @@ def prompt_generate_question_variations():
             print("Invalid choice. Please enter 'yes' or 'no'.")    
     
 
+
+def gather_user_information():
+    """
+    Gathers information from the user through a series of interactive prompts, excluding email and code preferences.
+    """
+    valid_responses = {"text", "image"}
+    valid_yes_no = {"yes", "no"}
+
+    # Determine if the question is text or image
+    question_type = ""
+    while question_type not in valid_responses:
+        question_type = input("Are you uploading a question as text or as an image? (Enter 'text' or 'image'): ").strip().lower()
+        if question_type not in valid_responses:
+            print("Invalid response. Please enter 'text' or 'image'.")
+    
+    # Collect the question text or image path based on the question type
+    question_text, question_image_path = "", ""
+    if question_type == "text":
+        question_text = input("Please input your question: ")
+    elif question_type == "image":
+        question_image_path = input("Please submit the path to the image (or press enter to skip): ").strip()
+        if question_image_path:  # Validate path if provided
+            try:
+                validate_image_path(question_image_path)
+            except Exception as e:
+                print(f"Invalid image path: {e}. Skipping image upload.")
+                question_image_path = ""  # Clear path on failure
+
+    # Optional external image upload
+    external_image = input("If you are uploading any external images, please enter the path location (or press enter to skip): ").strip()
+    if external_image:  # Validate path if provided
+        try:
+            validate_image_path(external_image)
+        except Exception as e:
+            print(f"Invalid external image path: {e}. Skipping external image upload.")
+            external_image = ""  # Clear path on failure
+
+    # Inquiry about question variations
+    question_variations = ""
+    while question_variations not in valid_yes_no:
+        question_variations = input("Are you interested in generating question variations? (Enter 'yes' or 'no'): ").strip().lower()
+        if question_variations not in valid_yes_no:
+            print("Invalid response. Please enter 'yes' or 'no'.")
+
+    user_info = {
+        "QuestionType": question_type,
+        "QuestionText": question_text if question_type == "text" else "",
+        "QuestionImagePath": question_image_path if question_type == "image" else "",
+        "ExternalImage": external_image,
+        "QuestionVariations": question_variations,
+    }
+
+    return user_info
+
+
+
+def extract_question_image_or_text(user_info:dict,api_key:str):
+    question_image_path = user_info.get("QuestionImagePath")
+    question_str = user_info.get("QuestionText")
+    #print(question_image_path)
+    if question_str != "":
+        return question_str
+    elif question_image_path != "":
+        try:
+            image_question = extract_question(image_path=question_image_path, api_key=api_key)
+            image_solution = extract_solution(image_path=question_image_path, api_key=api_key)
+            return image_question, image_solution
+        except Exception as e:
+            print(f"Error extracting question from image: {e}")
+            return None
+    else:
+        print("Error: Invalid data type. Expected 'str' or 'image'.")
+        return None
+        
+        

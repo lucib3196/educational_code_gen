@@ -385,31 +385,31 @@ class DatasetUpdater:
 
 
 
-# Configuration variables
-api_key = "your_openai_api_key"  # Replace with your actual API key
-gpt_model_name = "gpt-3.5-turbo-1106"
-embedding_model_name = "text-embedding-ada-002"
-example_text = "\n If the maximum acceleration of a car is {{params.a}} {{params.unitsAcceleration}}. \n What is the 0-60 mph time in seconds?\n\n"
+# # Configuration variables
+# api_key = "your_openai_api_key"  # Replace with your actual API key
+# gpt_model_name = "gpt-3.5-turbo-1106"
+# embedding_model_name = "text-embedding-ada-002"
+# example_text = "\n If the maximum acceleration of a car is {{params.a}} {{params.unitsAcceleration}}. \n What is the 0-60 mph time in seconds?\n\n"
 
-source_folder_path = "path/to/source/folder"  # Replace with the actual source folder path
-current_dataset_csv_path = "path/to/current/dataset.csv"  # Replace with the actual CSV path
-files_to_process = ["question.html", "server.js", "server.py", "info.json", "solution.html"]
-export_directory_path = "path/to/export/directory"  # Replace with the actual export directory path
+# source_folder_path = "path/to/source/folder"  # Replace with the actual source folder path
+# current_dataset_csv_path = "path/to/current/dataset.csv"  # Replace with the actual CSV path
+# files_to_process = ["question.html", "server.js", "server.py", "info.json", "solution.html"]
+# export_directory_path = "path/to/export/directory"  # Replace with the actual export directory path
 
-# Initialize the classifier uncomment if needed 
-# classifier = QuestionProcessor(gpt_model_name, embedding_model_name, api_key=api_key)
+# # Initialize the classifier uncomment if needed 
+# # classifier = QuestionProcessor(gpt_model_name, embedding_model_name, api_key=api_key)
 
-# Process the example text (uncomment if needed)
-# classifier.pretty_embedding(example_text)
+# # Process the example text (uncomment if needed)
+# # classifier.pretty_embedding(example_text)
 
-# Initialize the dataset updater
-data_set_updater = DatasetUpdater(
-    source_folder_path=source_folder_path,
-    current_dataset_csv_path=current_dataset_csv_path,
-    files_to_process=files_to_process,
-    export_directory_path=export_directory_path,
-    api_key=api_key
-)
+# # Initialize the dataset updater
+# data_set_updater = DatasetUpdater(
+#     source_folder_path=source_folder_path,
+#     current_dataset_csv_path=current_dataset_csv_path,
+#     files_to_process=files_to_process,
+#     export_directory_path=export_directory_path,
+#     api_key=api_key
+# )
 
-# Run the dataset updater (uncomment if needed)
-# data_set_updater.run()
+# # Run the dataset updater (uncomment if needed)
+# # data_set_updater.run()

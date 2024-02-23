@@ -124,24 +124,24 @@ class QuestionMetaDataGenerator:
         # If retries are exhausted and metadata is still empty
         raise ValueError("Failed to generate non-empty metadata after retries.")
 
-# def test_question_metadata_generator(api_key, question, created_by, code_lang):
-#     """
-#     Test function to generate metadata for a question.
+def question_metadata_generator(api_key, question, created_by, code_lang):
+    """
+    Test function to generate metadata for a question.
 
-#     Parameters:
-#     api_key (str): API key for the service.
-#     question (str): The question to process.
-#     created_by (str): The identifier for who created the question.
-#     code_lang (str): The code language associated with the question.
-#     """
-#     classifier = QuestionMetaDataGenerator(api_key=api_key)
-#     output = classifier.extract(question, created_by, code_lang)
-#     print(output)
+    Parameters:
+    api_key (str): API key for the service.
+    question (str): The question to process.
+    created_by (str): The identifier for who created the question.
+    code_lang (str): The code language associated with the question.
+    """
+    classifier = QuestionMetaDataGenerator(api_key=api_key)
+    metadata,usage = classifier.extract(question, created_by, code_lang)
+    return metadata
 
 # # Example usage
-# api_key = "your_api_key_here"  # Replace with your actual API key
+# api_key = "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"  # Replace with your actual API key
 # test_question = "What is the capital city of France?Options:A) London B) Berlin C) Paris D) Madrid"
 # created_by = "user123"  # Replace with the actual creator identifier
 # code_lang = "javascript"  # Replace with the actual code language
 
-# test_question_metadata_generator(api_key, test_question, created_by, code_lang)
+# print(question_metadata_generator(api_key, test_question, created_by, code_lang))
