@@ -184,9 +184,9 @@ def process_non_adaptive(question, question_path,meta_data, config):
 # Example usage
 def main():
     config = {
-        "api_key": "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",  # Replace with your actual API key
+        "api_key": "",  # Replace with your actual API key
         "csv_file": "Question_Embedding_20240128.csv",
-        "created_by": "lberm007@ucr.edu",  # Replace with the actual creator identifier
+        "created_by": "",  # Replace with the actual creator identifier
         "code_language": "javascript",  # Replace with the actual code language
         "export_model": "gpt-4",
         "solution_guide": None,  # Placeholder for solution guide path or content
