@@ -104,7 +104,8 @@ def question_solution_guide(question:str,api_key:str,csv_path:str,solution_guide
     
     prompt=ExampleBasedPromptFormatter.run(examples_dict,base_template) + f"\n new_question_input = {question}  delimit the generated html with ```insert_code_here```"
     # Define LLM 
-    print(prompt)
+    
+
     llm = ChatOpenAI(model = llm_options["llm_code_generation_model"],api_key=api_key,temperature=llm_options["temperature"])
     output_parser = StrOutputParser()
     chain = llm | output_parser
@@ -122,7 +123,7 @@ def question_solution_guide(question:str,api_key:str,csv_path:str,solution_guide
         ```insert revised html code here```
         """
         solution_generated = chain.invoke(solution_improvement)
-    print(code_guide)
+   
     return solution_generated
 
 # # Example usage of the function

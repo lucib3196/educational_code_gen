@@ -165,12 +165,6 @@ def process_adaptive(question, meta_data, question_path, config):
 
     # Export generated content for each file
     for file_name, generator in content_generators.items():
-        content = generator()  # No longer generates content; just retrieves it
-        export_files(file_name, content, question_path, config['api_key'],model_name=config["export_model"])
-
-
-    # Export generated content for each file
-    for file_name, generator in content_generators.items():
         content = generator()  # Call the generator function to get content
         export_files(file_name, content, question_path, config['api_key'],model_name=config["export_model"])
 
@@ -190,7 +184,7 @@ def process_non_adaptive(question, question_path,meta_data, config):
 # Example usage
 def main():
     config = {
-        "api_key": "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",  # Replace with your actual API key
+        "api_key": "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",  # Replace with your actual API key
         "csv_file": "Question_Embedding_20240128.csv",
         "created_by": "lberm007@ucr.edu",  # Replace with the actual creator identifier
         "code_language": "javascript",  # Replace with the actual code language
@@ -209,9 +203,7 @@ def main():
     question_data = extract_question_image_or_text(user_data,config["api_key"])
     question, solution_guide = question_data if isinstance(question_data, tuple) else (question_data, None)
     print("Question Data Extracted Successfully")
-    print(config)
     config = {**config, **user_data}
-    print(config)
         
     
     # Generate variations if requested
