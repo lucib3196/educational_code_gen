@@ -17,7 +17,21 @@
  ```
  cd educational_code_gen
  ```
+### Setting Up a Virtual Environment
+Create a virtual environment to manage the project's dependencies separately from your global Python installation:
+```
+python -m venv venv
+```
+Activate the virtual environment:
 
+On macOS and Linux:
+```
+source venv/bin/activate
+```
+On Windows:
+```
+venv\Scripts\activate
+```
 ### Installing Dependencies
  Install all the dependencies needed for this project
  ```

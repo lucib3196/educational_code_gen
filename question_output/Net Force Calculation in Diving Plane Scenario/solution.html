@@ -1,0 +1,37 @@
+<pl-solution-panel>
+    <pl-hint level="1" data-type="text">
+        The problem involves determining the net force acting on a pilot during a maneuver where a plane is pulling a dive with an acceleration of {params.g} times the gravitational acceleration ({params.g}g). The goal is to calculate the net force experienced by the pilot, who has a mass of {params.mass} {params.unitsMass}.
+    </pl-hint>
+    <pl-hint level="2" data-type="text">
+        Known Variables Description:
+        - Acceleration (a): {params.g} times the gravitational acceleration, \( a = n \times g \), where \( n = {params.g} \) and \( g \approx 9.81 \, m/s^2 \) is the acceleration due to gravity.
+        - Mass of the pilot (m): {params.mass} {params.unitsMass}.
+    </pl-hint>
+    <pl-hint level="3" data-type="text">
+        Equation Setup:
+        The net force (F) acting on the pilot can be calculated using Newton's second law of motion, which states that \( F = m \times a \), where \( m \) is the mass and \( a \) is the acceleration.
+    </pl-hint>
+    <pl-hint level="4" data-type="text">
+        Solution Process:
+        1. Identify the known values: \( m = {params.mass} \, {params.unitsMass} \), \( n = {params.g} \), and \( g = 9.81 \, m/s^2 \).
+        2. Calculate the acceleration: \( a = n \times g = {params.g} \times 9.81 \, m/s^2 \).
+        3. Substitute the values into Newton's second law equation: \( F = m \times a \).
+        4. Solve for the net force (F).
+
+        Using LaTeX for mathematical representations:
+        \[
+        a = n \times g = {params.g} \times 9.81 \, m/s^2 = {math.round(params.g * 9.81, 2)} \, m/s^2
+        \]
+        \[
+        F = m \times a = {params.mass} \, {params.unitsMass} \times {math.round(params.g * 9.81, 2)} \, m/s^2 = {correct_answers.F} \, {params.unitsForce}
+        \]
+    </pl-hint>
+    <pl-hint level="5" data-type="text">
+        Explanation and Clarification:
+        The acceleration of {params.g}g means that the pilot is experiencing an acceleration {params.g} times greater than the acceleration due to gravity. This high acceleration significantly increases the net force acting on the pilot compared to the force experienced at rest or in uniform motion.
+    </pl-hint>
+    <pl-hint level="6" data-type="text">
+        Educational Goal:
+        The guide aims to help students understand the application of Newton's second law of motion in a real-world context, emphasizing the relationship between acceleration, mass, and force. By following the methodical steps outlined, students can learn how to approach similar problems systematically and apply the core principles of classical mechanics.
+    </pl-hint>
+</pl-solution-panel>

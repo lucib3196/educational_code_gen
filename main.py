@@ -186,7 +186,7 @@ def main():
     config = {
         "api_key": "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",  # Replace with your actual API key
         "csv_file": "Question_Embedding_20240128.csv",
-        "created_by": "user123",  # Replace with the actual creator identifier
+        "created_by": "",  # Replace with the actual creator identifier
         "code_language": "javascript",  # Replace with the actual code language
         "export_model": "gpt-4-turbo-preview",
         "solution_guide": None,  # Placeholder for solution guide path or content
@@ -203,7 +203,6 @@ def main():
     question_data = extract_question_image_or_text(user_data,config["api_key"])
     question, solution_guide = question_data if isinstance(question_data, tuple) else (question_data, None)
     print("Question Data Extracted Successfully")
-    print(config)
     config = {**config, **user_data}
     # print(config)
         
