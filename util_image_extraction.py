@@ -9,21 +9,21 @@ def encode_image(image_path):
     with open(image_path, "rb") as image_file:
         return base64.b64encode(image_file.read()).decode('utf-8')
 
-def encode_image_and_send_request(text, image_path,api_key,max_tokens = 1000):
+def encode_image_and_send_request(text, image_paths, api_key, max_tokens=1000):
     """
-    Encodes an image, sends a request to an API, and extracts content from the response.
+    Encodes images, sends a request to an API, and extracts content from the response.
 
     Parameters:
     text (str): The text to be included in the payload.
-    image_path (str): The path to the image to be encoded.
+    image_paths (list of str): The paths to the images to be encoded.
     api_key (str): The API key for authorization.
 
     Returns:
     str: Extracted content from the API response.
     """
-
-    # Encoding the image
-    base64_image = encode_image(image_path)
+    print(image_paths)
+    # Encode each image and prepare the image content part of the payload
+    image_contents = [{"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{encode_image(image_path)}", "detail": "high"}} for image_path in image_paths]
 
     # Setting headers for the request
     headers = {
@@ -43,17 +43,8 @@ def encode_image_and_send_request(text, image_path,api_key,max_tokens = 1000):
             {
                 "role": "user",
                 "content": [
-                    {
-                        "type": "text",
-                        "text": text
-                    },
-                    {
-                        "type": "image_url",
-                        "image_url": {
-                            "url": f"data:image/jpeg;base64,{base64_image}",
-                            "detail": "high"
-                        }
-                    }
+                    {"type": "text", "text": text},
+                    *image_contents  # Unpacking the list of image contents into the payload
                 ]
             }
         ],
@@ -84,7 +75,7 @@ def encode_image_and_send_request(text, image_path,api_key,max_tokens = 1000):
 
 def extract_question(image_path,api_key,max_tokens = 1000):
     extract_question_prompt = 'Extract the complete problem statement from the image, ensuring it includes all details, data, and parameters necessary for solving the problem comprehensively, delimited by triple quotes """insert text here""" ' 
-    extracted_question = encode_image_and_send_request(text = extract_question_prompt, image_path = image_path,api_key = api_key,max_tokens = max_tokens)
+    extracted_question =encode_image_and_send_request(text=extract_question_prompt, image_paths=image_path, api_key=api_key, max_tokens=max_tokens)
     return extracted_question
 
 def extract_solution(image_path,api_key,max_tokens = 1000):
@@ -115,16 +106,20 @@ def extract_solution(image_path,api_key,max_tokens = 1000):
     Structure the guide to assist in understanding the problem-solving process as depicted, emphasizing a deep comprehension of the principles and methods involved.
     delimited by triple quotes '''Insert text here''' 
     """
-    extracted_solution = encode_image_and_send_request(text = extract_solution_prompt, image_path = image_path,api_key = api_key,max_tokens = max_tokens)
+    extracted_solution = encode_image_and_send_request(text=extract_solution_prompt, image_paths=image_path, api_key=api_key, max_tokens=max_tokens)
     return extracted_solution
 
 
 # if __name__ == '__main__':
-#     test_path = r"test_images\textbook_example.png"
-#     api_key = "insert_api_key"
+#     test_path = [[r"C:\Users\lberm\OneDrive\Desktop\GitHub_Repository\quetion_output\medley1\medley_1.png"],[r"C:\Users\lberm\OneDrive\Desktop\GitHub_Repository\quetion_output\medley1\medley_1_solution.png"]]
+    
+#     # Flatten the list of image paths
+#     flattened_image_paths = [item for sublist in test_path for item in sublist]
+    
+#     api_key = "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"
 
-#     solution = extract_solution(test_path, api_key)
+#     solution = extract_solution(flattened_image_paths, api_key)
 #     print("Solution:", solution)
 
-#     question = extract_question(test_path, api_key)
+#     question = extract_question(flattened_image_paths, api_key)
 #     print("Question:", question)

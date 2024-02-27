@@ -1,0 +1,17 @@
+<pl-solution-panel>
+    <pl-hint level="1" data-type="text">
+        To find the resulting speed of the truck, we use the formula: \( v_f = v_i + at \), where \( v_i \) is the initial speed, \( a \) is the acceleration, and \( t \) is the time of acceleration. The units for speed, acceleration, and time are {params.unitsSpeed}, {params.unitsAcceleration}, and {params.unitsTime} respectively.
+    </pl-hint>
+    <pl-hint level="2" data-type="text">
+        First, convert the initial speed from {params.unitsSpeed} to the appropriate unit to ensure consistency with the acceleration unit. For example, if the initial speed is in mph, use the conversion formula: \( v_i = {params.v} \times \frac{5280}{3600} \) for USCS units.
+    </pl-hint>
+    <pl-hint level="3" data-type="text">
+        After conversion, calculate the final speed using the given acceleration ({params.a} {params.unitsAcceleration}) and time ({params.t} {params.unitsTime}): \( v_f = v_i + a \times t \).
+    </pl-hint>
+    <pl-hint level="4" data-type="text">
+        Finally, convert the final speed back to {params.unitsSpeed} using the appropriate conversion formula. For example, if converting to mph, use: \( v_f = v_f \times \frac{3600}{5280} \).
+    </pl-hint>
+    <pl-hint level="5" data-type="text">
+        Substituting the given values ({params.v} {params.unitsSpeed}, {params.a} {params.unitsAcceleration}, {params.t} {params.unitsTime}) and performing the calculations will yield the resulting speed of the truck in {params.unitsSpeed}, which is approximately {correct_answers.v} {params.unitsSpeed}.
+    </pl-hint>
+</pl-solution-panel>

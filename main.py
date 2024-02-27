@@ -154,7 +154,7 @@ def process_adaptive(question, meta_data, question_path, config):
         solution_guide=config.get('solution_guide'), 
         code_guide=generated_js
     )
-
+    print(generated_js)
     # Define content for each file type using pre-generated content
     content_generators = {
         "question.html": lambda: generated_html,
@@ -162,12 +162,6 @@ def process_adaptive(question, meta_data, question_path, config):
         "solution.html": lambda: generated_solution,
         "info.json": lambda: meta_data
     }
-
-    # Export generated content for each file
-    for file_name, generator in content_generators.items():
-        content = generator()  # No longer generates content; just retrieves it
-        export_files(file_name, content, question_path, config['api_key'],model_name=config["export_model"])
-
 
     # Export generated content for each file
     for file_name, generator in content_generators.items():
@@ -190,11 +184,11 @@ def process_non_adaptive(question, question_path,meta_data, config):
 # Example usage
 def main():
     config = {
-        "api_key": "",  # Replace with your actual API key
+        "api_key": "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",  # Replace with your actual API key
         "csv_file": "Question_Embedding_20240128.csv",
         "created_by": "user123",  # Replace with the actual creator identifier
         "code_language": "javascript",  # Replace with the actual code language
-        "export_model": "gpt-4",
+        "export_model": "gpt-4-turbo-preview",
         "solution_guide": None,  # Placeholder for solution guide path or content
         "additional_instructions": None,  # Placeholder for any additional instructions
         "retrieval_optimization": False,  # Placeholder for retrieval optimization flag
@@ -211,7 +205,7 @@ def main():
     print("Question Data Extracted Successfully")
     print(config)
     config = {**config, **user_data}
-    print(config)
+    # print(config)
         
     
     # Generate variations if requested
@@ -242,7 +236,7 @@ def main():
             config["additional_instructions"] += " " + additional_message
 
     
-    print(config)
+    # print(config)
     
     export_path = config["export_path"]
     for question,solutions in questions_to_process:

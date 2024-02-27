@@ -151,18 +151,26 @@ def gather_user_information():
             print("Invalid response. Please enter 'text' or 'image'.")
     
     # Collect the question text or image path based on the question type
-    question_text, question_image_path = "", ""
+    question_text, question_image_paths = "", []
     if question_type == "text":
         question_text = input("Please input your question: ")
     elif question_type == "image":
-        question_image_path = input("Please submit the path to the image (or press enter to skip): ").strip()
-        if question_image_path:  # Validate path if provided
-            try:
-                validate_image_path(question_image_path)
-            except Exception as e:
-                print(f"Invalid image path: {e}. Skipping image upload.")
-                question_image_path = ""  # Clear path on failure
-
+        # Ask for multiple paths, separated by commas
+        input_paths = input("Please submit paths to the images, separated by commas (or press enter to skip): ").strip()
+        if input_paths:  # Check if anything was input
+            # Split the input string into a list by commas
+            paths_list = input_paths.split(',')
+            # Iterate over the list to validate and store each path
+            for path in paths_list:
+                path = path.strip()  # Remove any leading/trailing whitespace
+                try:
+                    validate_image_path(path)
+                    # If the path is valid, append it as a list to question_image_paths
+                    question_image_paths.append([path])
+                except Exception as e:
+                    print(f"Invalid image path: {e}. Skipping image upload.")
+    # Flattening the list of lists after all paths have been collected and validated
+    flattened_image_paths = [item for sublist in question_image_paths for item in sublist]
     # Optional external image upload
     external_image = input("If you are uploading any external images, please enter the path location (or press enter to skip): ").strip()
     if external_image:  # Validate path if provided
@@ -182,7 +190,7 @@ def gather_user_information():
     user_info = {
         "QuestionType": question_type,
         "QuestionText": question_text if question_type == "text" else "",
-        "QuestionImagePath": question_image_path if question_type == "image" else "",
+        "QuestionImagePath": flattened_image_paths if question_type == "image" else "",
         "ExternalImage": external_image,
         "QuestionVariations": question_variations,
     }
