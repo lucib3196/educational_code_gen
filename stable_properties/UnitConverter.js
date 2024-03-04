@@ -19,11 +19,11 @@
  *    - Use the convert method: converter.convert(value, fromUnit, toUnit);
  *      Example: converter.convert(10, 'm', 'km') // Converts 10 meters to kilometers.
  * 4. To generate a random value for a specific unit:
- *    - Use the generateRandomValueForUnit method: converter.generateRandomValueForUnit(unit, relationship, custom_range);
- *      - unit: Specify the unit for which you want to generate a random value.
- *      - relationship (optional): Specify the relationship between two generated values. For instance, 'greater' to generate a value greater than another generated value.
- *      - custom_range (optional): Specify a custom range within which the random value should fall.
- *      Example: converter.generateRandomValueForUnit('m', 'greater', [0, 100]) // Generates a random value greater than 0 and less than 100 meters.
+   - Use the `generateRandomValueForUnit` method: `converter.generateRandomValueForUnit(unit, relationship, custom_range);`
+     - `unit`: Specify the unit for which you want to generate a random value.
+     - `relationship` (optional): Specify the relationship between two generated values. Use 'None' for a single random value, 'smaller' to generate a value smaller than another, or 'larger' to generate a value larger than another.
+     - `custom_range`: Specify a custom range within which the random value should fall. This parameter must be an array of two numbers, where the first number is less than the second number.
+     Example: `converter.generateRandomValueForUnit('m', 'larger', [10, 100])` // Generates a random value for meters that is greater than another random value between 10 and 100.
  * 
  * Note: Make sure to check the supported units in each category and provide valid units as arguments to the methods.
  */
@@ -34,66 +34,66 @@ class UnitConverter {
     constructor() {
         this.conversionRates = {
             length: {
-                'm': { rate: 1, range: [1, 1000] },
-                'km': { rate: 1000, range: [10, 15] }, // Kilometers
-                'miles': { rate: 1609.34, range: [10, 15] }, // Miles
-                'ft': { rate: 0.3048, range: [1, 5280] }, // Feet
-                'inches': { rate: 0.0254, range: [0.0254, 2.54] }, // Inches
-                'cm': { rate: 0.01, range: [0.01, 1] }, // Centimeters
-                'mm': { rate: 0.001, range: [0.001, 0.1] }, // Millimeters
-                'µm': { rate: 1e-6, range: [1e-6, 1e-4] }, // Micrometers (Microns)
-                'nm': { rate: 1e-9, range: [1e-9, 1e-7] }, // Nanometers
+                'm': { rate: 1 },
+                'km': { rate: 1000 }, // Kilometers
+                'miles': { rate: 1609.34 }, // Miles
+                'ft': { rate: 0.3048}, // Feet
+                'inches': { rate: 0.0254 }, // Inches
+                'cm': { rate: 0.01}, // Centimeters
+                'mm': { rate: 0.001}, // Millimeters
+                'µm': { rate: 1e-6 }, // Micrometers (Microns)
+                'nm': { rate: 1e-9}, // Nanometers
             },
             weight: {
-                kilograms: { rate: 1, range: [1, 100] },
-                grams: { rate: 1000, range: [100, 100000] },
-                pounds: { rate: 2.20462, range: [0.2, 220.462] }
+                kilograms: { rate: 1},
+                grams: { rate: 1000 },
+                pounds: { rate: 2.20462}
             },
             speed: {
-                'm/s': { rate: 1, range: [1, 40] },
-                'km/h': { rate: 3.6, range: [800, 880] },
-                'mph': { rate: 2.23694, range: [500, 600] },
-                'ft/s': { rate: 3.28084, range: [1, 145] } // ft/s, assuming range
+                'm/s': { rate: 1},
+                'km/h': { rate: 3.6 },
+                'mph': { rate: 2.23694 },
+                'ft/s': { rate: 3.28084} // ft/s, assuming range
             },
             time: {
-                'seconds': { rate: 1, range: [1, 360] },
-                'minutes': { rate: 60, range: [0.8, 1.2] },
-                'hours': { rate: 3600, range: [0.1, 1] } // Equivalent to 1 to 2 minutes
+                'seconds': { rate: 1},
+                'minutes': { rate: 60},
+                'hours': { rate: 3600} // Equivalent to 1 to 2 minutes
             },
             pressure: {
-                'Pa': { rate: 1, range: [100, 100000] }, // Pascal, base unit for pressure
-                'kPa': { rate: 1000, range: [100, 100000] },
-                'MPa': { rate: 100000, range: [100, 100000] },
-                'GPa': { rate: 100000000, range: [100, 100000] },
-                'psi': { rate: 6894.76, range: [0.145038, 14503.8] }, // Pounds per square inch
-                'bar': { rate: 100000, range: [1, 1000] }, // Bar, commonly used in atmospheric pressure readings
-                'atm': { rate: 101325, range: [0.986923, 986.923] }, // Standard atmosphere, average sea-level pressure
-                'Torr': { rate: 133.322, range: [1, 760] }, // Torr, nearly equivalent to the millimeter of mercury (mmHg)
-                'mmHg': { rate: 133.322, range: [1, 760] } // Millimeters of mercury, commonly used in medical and meteorological fields
+                'Pa': { rate: 1}, // Pascal, base unit for pressure
+                'kPa': { rate: 1000},
+                'MPa': { rate: 100000},
+                'GPa': { rate: 100000000},
+                'psi': { rate: 6894.76}, // Pounds per square inch
+                'bar': { rate: 100000}, // Bar, commonly used in atmospheric pressure readings
+                'atm': { rate: 101325 }, // Standard atmosphere, average sea-level pressure
+                'Torr': { rate: 133.322}, // Torr, nearly equivalent to the millimeter of mercury (mmHg)
+                'mmHg': { rate: 133.322} // Millimeters of mercury, commonly used in medical and meteorological fields
             },
             force: {
-                "N": { rate: 1, range: [100, 100000] }, // Newtons
-                "kN": { rate: 1000, range: [0.1, 100] }, // Kilonewtons
-                "lbf": { rate: 4.44822, range: [22.4809, 22480.9] }, // Pounds-force
-                "MN": { rate: 1e6, range: [0.0001, 100] } // Meganewtons
+                "N": { rate: 1}, // Newtons
+                "kN": { rate: 1000}, // Kilonewtons
+                "lbf": { rate: 4.44822}, // Pounds-force
+                "MN": { rate: 1e6} // Meganewtons
             },
             energy: {
-                "J": { rate: 1, range: [1, 1000000] }, // Joules
-                "kJ": { rate: 1000, range: [0.001, 1000] }, // Kilojoules
-                "cal": { rate: 4.184, range: [0.239, 239005.736] }, // Calories
-                "kcal": { rate: 4184, range: [0.000239, 239.005736] }, // Kilocalories
-                "BTU": { rate: 1055.06, range: [0.000947817, 947.81712] }, // British Thermal Units
-                "ftlb": { rate: 1.35582, range: [0.737562, 737562.149] }, // Foot-pounds
+                "J": { rate: 1  }, // Joules
+                "kJ": { rate: 1000,  }, // Kilojoules
+                "cal": { rate: 4.184}, // Calories
+                "kcal": { rate: 4184}, // Kilocalories
+                "BTU": { rate: 1055.06, }, // British Thermal Units
+                "ftlb": { rate: 1.35582,  }, // Foot-pounds
             },
             power: {
-                "W": { rate: 1, range: [1, 1000000] }, // Watts
-                "kW": { rate: 1000, range: [0.001, 1000] }, // Kilowatts
-                "MW": { rate: 1000000, range: [0.000001, 1000] }, // Megawatts
-                "HP": { rate: 745.7, range: [0.001341022, 1341.022] }, // Horsepower
+                "W": { rate: 1, }, // Watts
+                "kW": { rate: 1000 }, // Kilowatts
+                "MW": { rate: 1000000}, // Megawatts
+                "HP": { rate: 745.7 }, // Horsepower
             },          
             angles: {
-                "rad": {rate: 1, range: [0.5, 1.0]}, //  range in radians
-                "deg": {rate:  math.pi/180, range: [15, 60]} //range in degrees
+                "rad": {rate: 1}, //  range in radians
+                "deg": {rate:  math.pi/180} //range in degrees
             }
         }
     };
@@ -141,14 +141,17 @@ class UnitConverter {
      * @returns {number|Object} A random value within the specified range, or an object with two values if a relationship is specified.
      * @throws {Error} If the specified unit is not supported or if an invalid relationship is provided.
      */
-    generateRandomValueForUnit(unit, relationship = "None", custom_range = null) {
+    generateRandomValueForUnit(unit, relationship = "None", custom_range) {
+        if (!Array.isArray(custom_range) || custom_range.length !== 2 || custom_range[0] >= custom_range[1]) {
+            throw new Error('Invalid custom range. It must be an array with two numbers where the first is less than the second.');
+        }
+    
         const categories = Object.keys(this.conversionRates);
         for (let category of categories) {
             const units = this.conversionRates[category];
             if (units[unit]) {
-                // Use the custom range if provided, otherwise use the default range.
-                const range = custom_range || units[unit].range;
-                
+                // Use the custom range for generating random values.
+                const range = custom_range;
                 let value_1 = Math.random() * (range[1] - range[0]) + range[0];
                 let value_2 = Math.random() * (range[1] - range[0]) + range[0];
     
@@ -158,7 +161,7 @@ class UnitConverter {
                     if ((relationship === "smaller" && value_1 > value_2) || (relationship === "larger" && value_1 < value_2)) {
                         [value_1, value_2] = [value_2, value_1]; // Swap to ensure correct relationship.
                     }
-                    return { value_1, value_2 }; // Return both values in an object for both cases.
+                    return { value_1, value_2 }; // Return both values in an object.
                 } else {
                     throw new Error(`Invalid relationship "${relationship}". Must be 'None', 'smaller', or 'larger'.`);
                 }

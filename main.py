@@ -8,6 +8,7 @@ from util_generate_variations import GenerateVariation
 from utils_user_input import gather_user_information
 from utils_user_input import extract_question_image_or_text
 from util_generation_misc import create_variation_solution
+from credential import api_key
 
 import os
 
@@ -131,8 +132,9 @@ def process_question(question: str, config: dict, export_path: str):
     if is_adaptive == "true":
         process_adaptive(question,meta_data, question_path,config=config)
     else:
-        process_non_adaptive(question, question_path, config)
+        process_non_adaptive(question, question_path, meta_data=meta_data,config=config)
 def process_adaptive(question, meta_data, question_path, config):
+
     # Generate content once to avoid redundancy
     generated_html = attempt_generate_html(
         question, 
@@ -184,7 +186,7 @@ def process_non_adaptive(question, question_path,meta_data, config):
 # Example usage
 def main():
     config = {
-        "api_key": "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",  # Replace with your actual API key
+        "api_key": "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",  # Replace with your actual API key
         "csv_file": "Question_Embedding_20240128.csv",
         "created_by": "",  # Replace with the actual creator identifier
         "code_language": "javascript",  # Replace with the actual code language
@@ -192,7 +194,7 @@ def main():
         "solution_guide": None,  # Placeholder for solution guide path or content
         "additional_instructions": None,  # Placeholder for any additional instructions
         "retrieval_optimization": False,  # Placeholder for retrieval optimization flag
-        "export_path": r"question_output" # Replace with where you want questions to be exported
+        "export_path": r"question_output\heat_1_18" # Replace with where you want questions to be exported
     }
     # Initialize classes
     variation_generator = GenerateVariation(config["api_key"])
@@ -235,7 +237,7 @@ def main():
             config["additional_instructions"] += " " + additional_message
 
     
-    # print(config)
+    print(config)
     
     export_path = config["export_path"]
     for question,solutions in questions_to_process:

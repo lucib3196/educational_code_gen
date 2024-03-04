@@ -9,6 +9,8 @@ const math = require('mathjs');
  * This module demonstrates how to import data from a file named "fluid_and_mechanical_properties"
  * using the `require` statement in JavaScript. Make sure the file is in the same directory as
  * your script or provide the correct path to the file.
+ * 
+ * 
  */
 
 
@@ -135,6 +137,7 @@ let materialProperties = {
 };
 /**const {getFluidProperties} = require('./fluid_and_mechanical_properties)
  * Retrieves the properties of a specified fluid and adjusts units if necessary.
+ * Only import this module if you require fluid_mechanical properties for calculations
  * @param {string} material - The name of the fluid.
  * @param {number} unitSelection - The unit selection (0 for SI, 1 for Imperial).
  * @returns {Object} The properties of the fluid, with adjusted units if specified.
@@ -170,6 +173,7 @@ const getFluidProperties = (material, unitSelection) => {
 
 /**const {getMaterialProperties} = require('./fluid_and_mechanical_properties)
  * Retrieves the properties of a specified material and adjusts units if necessary.
+ * Only import this module if you require fluid_mechanical properties for calculations
  * @param {string} material - The name of the material.
  * @param {number} unitSelection - The unit selection (0 for SI, 1 for Imperial).
  * @returns {Object} The properties of the material, with adjusted units.

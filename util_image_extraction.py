@@ -111,12 +111,12 @@ def extract_solution(image_path,api_key,max_tokens = 1000):
 
 
 # if __name__ == '__main__':
-#     test_path = [[r"C:\Users\lberm\OneDrive\Desktop\GitHub_Repository\quetion_output\medley1\medley_1.png"],[r"C:\Users\lberm\OneDrive\Desktop\GitHub_Repository\quetion_output\medley1\medley_1_solution.png"]]
+#     test_path = [[r"C:\Users\lberm\OneDrive\Desktop\GitHub_Repository\educational_code_gen\test_images\delay_21_solution.png"],[r"C:\Users\lberm\OneDrive\Desktop\GitHub_Repository\educational_code_gen\test_images\delay_21.png"]]
     
 #     # Flatten the list of image paths
 #     flattened_image_paths = [item for sublist in test_path for item in sublist]
     
-#     api_key = "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"
+#     api_key = ""
 
 #     solution = extract_solution(flattened_image_paths, api_key)
 #     print("Solution:", solution)

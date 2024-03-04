@@ -85,7 +85,7 @@ def question_html_generator(question:str,api_key:str,csv_path:str,additional_ins
         splits = text_splitter.split_documents(data)
 
         # VectorDB
-        embedding = OpenAIEmbeddings()
+        embedding = OpenAIEmbeddings(api_key=api_key)
         vectordb = Chroma.from_documents(documents=splits, embedding=embedding)
         retriever = vectordb.as_retriever(search_type="similarity", search_kwargs={"k": 8})
         # Set up Retriever As a tool

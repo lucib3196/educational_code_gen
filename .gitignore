@@ -1,1 +1,5 @@
 venv/
+credential.py
+question_output
+test_images
+stable_properties

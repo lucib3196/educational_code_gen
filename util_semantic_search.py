@@ -259,7 +259,7 @@ class SemanticSearch:
         if not isinstance(input_string, str):
             raise TypeError("Expected input to be a string.")
 
-    def semantic_search(self, input_string: str, search_column: str, n_examples: int, similarity_threshold=0.8):
+    def semantic_search(self, input_string: str, search_column: str, n_examples: int, similarity_threshold=0.7):
         """
         Performs a semantic search on the DataFrame, returning examples similar to the input string.
 
