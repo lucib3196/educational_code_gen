@@ -6,7 +6,6 @@ def create_variation_solution(original_question,original_solution_guide,question
         Solution Guide: {original_solution_guide}
         New Task:
         You are presented with a variation of the original question, focusing on a new unknown: {new_unknown}. The following steps are to be undertaken:
-
         1. Analyze Original Solution:
         Review the original solution and the formula it uses.
         2. Modify Formula:

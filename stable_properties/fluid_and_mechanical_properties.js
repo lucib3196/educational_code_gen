@@ -33,6 +33,13 @@ const fluidProperties = {
         "freezingTemperature": 0,
         "boilingTemperature": 100
     },
+    "mercury":{
+        "specificGravity": 13.546,
+        "viscosity": 1.526*10**(-3),
+        "specificHeatCapacity": 0.14,
+        "freezingTemperature":  -38.83,
+        "boilingTemperature": 356.73
+    },
     "gasoline": {
         "specificGravity": 0.72,
         "viscosity": 0.00029,
@@ -147,14 +154,14 @@ const getFluidProperties = (material, unitSelection) => {
     let fluid = fluidProperties[material];
 
     // Check if the fluid properties exist and if the latentHeat property is defined
-    if (fluid && fluid.latentHeat !== undefined) {
+    if (fluid) {
         // Check the unit selection and adjust properties accordingly
-        if (unitSelection === 0) {
+        if (unitSelection === "si") {
             // Convert density from specific gravity to kg/m³
             fluid.density = fluid.specificGravity * 1000;
             // Convert latent heat to SI unit (kJ/kg)
             fluid.latentHeat = fluid.latentHeat;
-        } else {
+        } else if (unitSelection === "uscs") {
             // Convert density from specific gravity to lb/ft³
             fluid.density = fluid.specificGravity * 62.4;
             // Convert dynamic viscosity to lb/ft·s
@@ -206,6 +213,108 @@ const getMaterialProperties = (material, unitSelection) => {
     return properties;
 }
 
+/**
+ * Thermal Properties of Substances Data Structure
+ *
+ * This data structure stores the thermal properties of various substances.
+ * Each substance is an object with the following properties:
+ * 
+ * Properties:
+ * - meltingPoint: The temperature at which the substance transitions from solid to liquid (in degrees Celsius).
+ * - specificLatentHeatOfFusion: The amount of heat required to change the substance from solid to liquid 
+ *                               at constant temperature (in joules per kilogram).
+ * - boilingPoint: The temperature at which the substance transitions from liquid to gas (in degrees Celsius).
+ * - specificLatentHeatOfVaporisation: The amount of heat required to change the substance from liquid to gas 
+ *                                      at constant temperature (in joules per kilogram).
+ *
+ * Each property is keyed by the substance's name with its values represented in an object. 
+ * The data structure is designed for easy access to the thermal properties for various calculations 
+ * in physics and chemistry involving phase changes.
+ *
+ * Example Usage:
+ * let heatFusion = substanceThermalProperties['water'].specificLatentHeatOfFusion;
+ * let boilingPointEthanol = substanceThermalProperties['ethanol'].boilingPoint;
+ *
+ * Note:
+ * The data provided should be used considering standard atmospheric pressure conditions and 
+ * the accuracy is subject to the purity of the substances.
+ */
+const substanceThermalProperties = {
+    "water": {
+        "meltingPoint": 0,
+        "specificLatentHeatOfFusion": 3.36 * 10**5,
+        "boilingPoint": 100,
+        "specificLatentHeatOfVaporisation": 2.26 * 10**6
+    },
+    "mercury": {
+        "meltingPoint": -39,
+        "specificLatentHeatOfFusion": 1.14 * 10**4,
+        "boilingPoint": 357,
+        "specificLatentHeatOfVaporisation": 2.96 * 10**5
+    },
+    "ethanol": {
+        "meltingPoint": -114,
+        "specificLatentHeatOfFusion": 1.08 * 10**5,
+        "boilingPoint": 78,
+        "specificLatentHeatOfVaporisation": 8.55 * 10**5
+    },
+    "gold": {
+        "meltingPoint": 1063,
+        "specificLatentHeatOfFusion": 6.28 * 10**4,
+        "boilingPoint": 2808,
+        "specificLatentHeatOfVaporisation": 1.72 * 10**6
+    },
+    "copper": {
+        "meltingPoint": 1083,
+        "specificLatentHeatOfFusion": 2.07 * 10**5,
+        "boilingPoint": 2566,
+        "specificLatentHeatOfVaporisation": 4.73 * 10**6
+    },
+    "lead": {
+        "meltingPoint": 327,
+        "specificLatentHeatOfFusion": 2.32 * 10**4,
+        "boilingPoint": 1750,
+        "specificLatentHeatOfVaporisation": 8.59 * 10**5
+    },
+    "nitrogen": {
+        "meltingPoint": -210,
+        "specificLatentHeatOfFusion": 2.57 * 10**4,
+        "boilingPoint": -196,
+        "specificLatentHeatOfVaporisation": 2.00 * 10**5
+    },
+    "oxygen": {
+        "meltingPoint": -219,
+        "specificLatentHeatOfFusion": 1.39 * 10**4,
+        "boilingPoint": -183,
+        "specificLatentHeatOfVaporisation": 2.13 * 10**5
+    }
+};
+
+const getSubstanceThermalProperties = (material, unitSelection) => {
+    // Retrieve fluid properties for the specified material
+    let property = substanceThermalProperties[material];
+
+    // Check if the fluid properties exist
+    if (property) {
+        // Check the unit selection and adjust properties accordingly
+        if (unitSelection === "si") {
+            return property;
+        } else if (unitSelection === "uscs") {
+            // Convert specific latent heat to Imperial unit (BTU/lbm)
+            property.specificLatentHeatOfFusion = property.specificLatentHeatOfFusion * 0.000429922614; // Convert kJ/kg to BTU/lbm
+            property.specificLatentHeatOfVaporisation = property.specificLatentHeatOfVaporisation * 0.000429922614;
+            // Convert From Celsius to Fahrenheit
+            property.boilingPoint = (property.boilingPoint * 9/5) + 32;
+            property.meltingPoint = (property.meltingPoint * 9/5) + 32;
+
+            return property;
+        }
+    } else {
+        console.error(`Material properties for "${material}" not found.`);
+        return null; // Or return an appropriate error object/message
+    }
+};
+
 
 
 
@@ -213,5 +322,8 @@ module.exports = {
     fluidProperties,
     materialProperties,
     getMaterialProperties,
-    getFluidProperties
+    getFluidProperties,
+    getSubstanceThermalProperties, // Updated to camelCase
+    substanceThermalProperties
 }
+    

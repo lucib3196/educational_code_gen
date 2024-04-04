@@ -8,7 +8,6 @@ from util_generate_variations import GenerateVariation
 from utils_user_input import gather_user_information
 from utils_user_input import extract_question_image_or_text
 from util_generation_misc import create_variation_solution
-from credential import api_key
 
 import os
 
@@ -132,9 +131,8 @@ def process_question(question: str, config: dict, export_path: str):
     if is_adaptive == "true":
         process_adaptive(question,meta_data, question_path,config=config)
     else:
-        process_non_adaptive(question, question_path, meta_data=meta_data,config=config)
+        process_non_adaptive(question, question_path, config)
 def process_adaptive(question, meta_data, question_path, config):
-
     # Generate content once to avoid redundancy
     generated_html = attempt_generate_html(
         question, 
@@ -156,7 +154,7 @@ def process_adaptive(question, meta_data, question_path, config):
         solution_guide=config.get('solution_guide'), 
         code_guide=generated_js
     )
-    print(generated_js)
+
     # Define content for each file type using pre-generated content
     content_generators = {
         "question.html": lambda: generated_html,
@@ -164,6 +162,12 @@ def process_adaptive(question, meta_data, question_path, config):
         "solution.html": lambda: generated_solution,
         "info.json": lambda: meta_data
     }
+
+    # Export generated content for each file
+    for file_name, generator in content_generators.items():
+        content = generator()  # No longer generates content; just retrieves it
+        export_files(file_name, content, question_path, config['api_key'],model_name=config["export_model"])
+
 
     # Export generated content for each file
     for file_name, generator in content_generators.items():
@@ -186,27 +190,27 @@ def process_non_adaptive(question, question_path,meta_data, config):
 # Example usage
 def main():
     config = {
-        "api_key": api_key,  # Replace with your actual API key
+        "api_key": "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",  # Replace with your actual API key
         "csv_file": "Question_Embedding_20240128.csv",
-        "created_by": "",  # Replace with the actual creator identifier
+        "created_by": "user123",  # Replace with the actual creator identifier
         "code_language": "javascript",  # Replace with the actual code language
-        "export_model": "gpt-4-turbo-preview",
+        "export_model": "gpt-4",
         "solution_guide": None,  # Placeholder for solution guide path or content
         "additional_instructions": None,  # Placeholder for any additional instructions
         "retrieval_optimization": False,  # Placeholder for retrieval optimization flag
-        "export_path": r"question_output\preclass7" # Replace with where you want questions to be exported
     }
     # Initialize classes
     variation_generator = GenerateVariation(config["api_key"])
     
     user_data = gather_user_information()
     
-    # Extrvalidationerror: 1 validation error for SemanticQAExtractorInputcode_option  argument of type 'NoneType' is not iterable (type=type_error)act question data
+    # Extract question data
     question_data = extract_question_image_or_text(user_data,config["api_key"])
     question, solution_guide = question_data if isinstance(question_data, tuple) else (question_data, None)
     print("Question Data Extracted Successfully")
+    print(config)
     config = {**config, **user_data}
-    # print(config)
+    print(config)
         
     
     # Generate variations if requested
@@ -217,9 +221,6 @@ def main():
         for data in question_variations:
             question_variation = data.get("question_variation")
             new_unknown = data.get("new_unknown")
-            print("Solution Guide: \n",solution_guide)
-            print("New Unkown: ", new_unknown)
-            print("Question Variation:", question)
             new_solution = create_variation_solution(question, solution_guide, question_variation, new_unknown, config["api_key"]) if solution_guide else None
             questions_to_process.append((question_variation, new_solution))
             
@@ -242,8 +243,7 @@ def main():
     
     print(config)
     
-    export_path = config["export_path"]
-    print(questions_to_process)
+    export_path = r"C:\Users\lberm\OneDrive\Desktop\GitHub_Repository\educational_code_gen\question_output"
     for question,solutions in questions_to_process:
         config["solution_guide"] = solutions
         

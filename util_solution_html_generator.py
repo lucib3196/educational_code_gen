@@ -123,7 +123,7 @@ def question_solution_guide(question:str,api_key:str,csv_path:str,solution_guide
         """
         solution_generated = chain.invoke(solution_improvement)
     # print(code_guide)
-    return solution_generated
+    return solution_generated.replace("{", "{{").replace("}", "}}")
 
 # # Example usage of the function
 # api_key = ""  # Replace with your actual API key
